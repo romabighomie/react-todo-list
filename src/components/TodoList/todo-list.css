@@ -1,0 +1,39 @@
+.todo-list {
+    width: 100%;
+    max-width: 320px;
+    padding: 50px 0 0 0;
+}
+
+.todo-list__header {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #000049;
+}
+
+.todo-list__input {
+    width: 100%;
+    padding: 5px 15px;
+}
+
+.todo-list__add-btn {
+    flex-shrink: 0;
+    padding: 5px 10px;
+
+    background: #08c408;
+    border: none;
+    border-radius: 5px;
+
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #ffffff;
+
+    cursor: pointer;
+}
+
+.todo-list__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
