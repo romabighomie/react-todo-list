@@ -10,7 +10,7 @@ export default function TodoList() {
 	function addTodo(event) {
 		event.preventDefault();
 		
-		if(value !== '') {
+		if(value.trim() !== '') {
 			const newTodo = {id: Date.now(), text: value, completed: false}
 			const newTodos = [...todos, newTodo];
 			
