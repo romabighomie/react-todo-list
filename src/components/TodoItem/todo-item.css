@@ -7,10 +7,15 @@
     border-radius: 10px;
 }
 
-.todo-item[data-status="true"] {
+.todo-item[data-status="true"] .todo-item__text {
     text-decoration: line-through;
 }
 
 .todo-item__checkbox {
+    cursor: pointer;
+}
+
+.todo-item__remove {
+    margin-left: auto;
     cursor: pointer;
 }
