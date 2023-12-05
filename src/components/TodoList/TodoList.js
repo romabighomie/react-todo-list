@@ -1,35 +1,24 @@
-import {useState} from "react";
-import {toast} from "react-toastify";
+import {useState} from 'react';
+import {toast} from 'react-toastify';
+import {useDispatch, useSelector} from 'react-redux';
+import {addTodo} from '../../redux/actions';
+import TodoItem from '../TodoItem/TodoItem';
 import './todo-list.css';
-import TodoItem from "../TodoItem/TodoItem";
 
 export default function TodoList() {
-	const [todos, setTodos] = useState([]);
+	const dispatch = useDispatch();
+	const todosRedux = useSelector(state => state.todos);
+	
 	const [value, setValue] = useState('');
 
-	function addTodo(event) {
+	function addNewTodo(event) {
 		event.preventDefault();
 		
 		if(value.trim() !== '') {
-			const newTodo = {id: Date.now(), text: value, completed: false}
-			const newTodos = [...todos, newTodo];
-			
-			setTodos(newTodos);
+			dispatch(addTodo(value));
 			setValue('');
-			
 			toast.info('Todo notes added', {autoClose: 1300})
 		}
-	}
-	
-	function toggleTodoStatus(id) {
-		setTodos(
-			todos.map(todo => {
-				if (todo.id === id) {
-					return { ...todo, completed: !todo.completed };
-				}
-				return todo;
-			})
-		);
 	}
 	
 	return(
@@ -45,17 +34,20 @@ export default function TodoList() {
 				<button
 					type="submit"
 					className="todo-list__add-btn"
-					onClick={addTodo}
+					onClick={addNewTodo}
 				>
 					Add
 				</button>
 			</form>
 			
 			<div className="todo-list__wrapper">
-				<TodoItem
-					todos={todos}
-					toggleTodoStatus={toggleTodoStatus}
-				/>
+				{todosRedux.map((todo, index) => (
+					<TodoItem
+						key={index}
+						todo={todo}
+						index={index}
+					/>
+				))}
 			</div>
 			
 		</div>

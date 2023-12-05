@@ -1,27 +1,38 @@
+import {useDispatch} from 'react-redux';
+import {removeTodo, toggleTodo} from '../../redux/actions';
 import './todo-item.css';
 
-export default function TodoItem(props) {
+export default function TodoItem({todo, index}) {
+	const dispatch = useDispatch();
+	
+	const handleRemove = (event) => {
+		event.stopPropagation();
+		dispatch(removeTodo(index))
+	}
+	
+	const handleToggle = () => {
+		dispatch(toggleTodo(index))
+	}
 	
 	return(
-		<>
-			{props.todos.map(todo => {
-				return (
-					<div
-						className="todo-item"
-						key={todo.id}
-						data-status={todo.completed}
-					>
-						<input
-							className="todo-item__checkbox"
-							type="checkbox"
-							onChange={() => props.toggleTodoStatus(todo.id)}
-						/>
-						<div>
-							{todo.text}
-						</div>
-					</div>
-				);
-			})}
-		</>
+		<div
+			data-status={todo.completed}
+			className="todo-item"
+		>
+			<input
+				className="todo-item__checkbox"
+				type="checkbox"
+				onClick={handleToggle}
+			/>
+			<div className="todo-item__text">
+				{todo.text}
+			</div>
+			<button
+				className="todo-item__remove"
+				onClick={handleRemove}
+			>
+				Remove
+			</button>
+		</div>
 	);
 }
