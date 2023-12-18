@@ -1,5 +1,5 @@
 import {useDispatch} from 'react-redux';
-import {removeTodo, toggleTodo} from '../../redux/actions';
+import {removeTodo, toggleTodo} from '../../store/slices/todoSlice';
 import './todo-item.css';
 
 export default function TodoItem({todo, index}) {
