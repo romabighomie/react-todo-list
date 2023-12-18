@@ -1,15 +1,18 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {toast} from 'react-toastify';
 import {useDispatch, useSelector} from 'react-redux';
-import {addTodo} from '../../redux/actions';
+import {addTodo, fetchTodos} from '../../store/slices/todoSlice';
 import TodoItem from '../TodoItem/TodoItem';
 import './todo-list.css';
 
 export default function TodoList() {
 	const dispatch = useDispatch();
-	const todosRedux = useSelector(state => state.todos);
-	
+	const {todos} = useSelector(state => state.todos);
 	const [value, setValue] = useState('');
+	
+	useEffect(() => {
+		dispatch(fetchTodos())
+	}, [])
 
 	function addNewTodo(event) {
 		event.preventDefault();
@@ -41,7 +44,7 @@ export default function TodoList() {
 			</form>
 			
 			<div className="todo-list__wrapper">
-				{todosRedux.map((todo, index) => (
+				{todos.map((todo, index) => (
 					<TodoItem
 						key={index}
 						todo={todo}
